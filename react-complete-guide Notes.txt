@@ -1,0 +1,21 @@
+Having html-like code in a JS files is actually referred to as JSX and sometimes you will see files that contain it with the file formate .JSX
+The html-like code is compiled in the same way as writing React.createElement(html component tag, configuration (attributes as js object), ...children)
+
+Restrictions of JSX:
+- The html-like code is similar to, but not 1:1 with html. For example, JSX uses the attribute className instead of pure html's class attribute
+- Should only have one root element returned per render function
+
+Two ways to make a component:
+- class App extends Component { render (return(JSX);) {}}
+- const App = () => { return (JSX);} <--- Best Practice
+
+The State Hook:
+- In functional components, you cannot access state as a default variable like you can in a JS class that extends Component
+- To use state in a functional component, you must import useState from the react package import { useState } from 'react';
+- Then you can pass useState one parameters which would be the default value of the object you want tracked in state
+    * const [count, setCount] = useState(0);
+- useState() will return an array of two items. 
+- The first, a reference to the variable that is now being tracked in state. 
+- The second, a reference to a function to update the value of the variable being stored in state
+
+Quick Link to the list of events you can listen to on an element: https://reactjs.org/docs/events.html#supported-events
