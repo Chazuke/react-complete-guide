@@ -3,32 +3,37 @@ import { useState } from 'react';
 import Person from './Person/Person';
 
 function App() {
+  // Define Initial State
   const [persons, setPersons] = useState([
-    { name: 'Max', age: 28 },
-    { name: 'Manu', age: 29 },
-    { name: 'Steph', age: 26 }
+    { id: 0, name: 'Max', age: 28 },
+    { id: 1, name: 'Manu', age: 29 },
+    { id: 2, name: 'Steph', age: 26 }
   ]);
+  const [showPersons, setShowPersons] = useState(false);
 
-  const updatePersonsName = (index, name) => {
-    let newPersons = [...persons];
-    newPersons[index].name = name;
+  // Update the name of the person with the given ID in state
+  const updatePersonsName = (id, name) => {
+    let newPersons = persons.slice();
+    newPersons.find(p => p.id === id).name = name;
     setPersons(newPersons);
   };
 
-  const updatePersonsAge = (index, age) => {
-    let newPersons = [...persons];
-    newPersons[index].age = age;
+  // Delete the person with the given ID in state
+  const deletePersonHandler = (id) => {
+    let newPersons = persons.slice();
+    newPersons.splice(newPersons.findIndex(p => p.id === id), 1);
     setPersons(newPersons);
-  };
-
-  const switchNameHandler = () => {
-    updatePersonsName(0, 'Maximilian');
-    updatePersonsAge(2, 37);
-  };
-
-  const onChangeHandler = (event) => {
-    updatePersonsName(1, event.target.value);
   }
+
+  // Handle input event from Person component
+  const onChangeHandler = (index, event) => {
+    updatePersonsName(index, event.target.value);
+  };
+
+  // Handle button click event in root App component
+  const togglePersonsHandler = (event) => {
+    setShowPersons(!showPersons);
+  };
 
   const style = {
     backgroundColor: 'white',
@@ -36,30 +41,35 @@ function App() {
     border: '1px solid blue',
     padding: '8px',
     cursor: 'pointer'
+  };
+
+  let personsJSX = null;
+
+  // Toggle displaying list of Person components
+  if (showPersons) {
+    personsJSX = (
+      <div>
+        {persons.map((person, index) => {
+          return (
+            <Person
+              name={person.name}
+              age={person.age}
+              changed={(event) => onChangeHandler(person.id, event)}
+              click={() => deletePersonHandler(person.id)}
+              key={person.id} />
+          );
+        })}
+      </div>
+    );
   }
 
+  // Render App Component
   return (
     <div className="App">
       <h1>Hi, I'm a react app</h1>
-      <button style={style} onClick={switchNameHandler}>Switch Name</button>
-      <Person
-        name={persons[0].name}
-        age={persons[0].age}
-        onClickHandler={() => updatePersonsName(0, 'Max0')}
-        changed={onChangeHandler} >My Hobby is: Racing</Person>
-      <Person
-        name={persons[1].name}
-        age={persons[1].age}
-        onClickHandler={switchNameHandler}
-        changed={onChangeHandler} >My Hobby is: Horseback Riding</Person>
-      <Person
-        name={persons[2].name}
-        age={persons[2].age}
-        updateAgeHandler={updatePersonsAge}
-        onClickHandler={() => { updatePersonsName(0, 'Max2'); updatePersonsAge(2, 27); }}
-        changed={onChangeHandler} >My Hobby is: Coloring</Person>
+      <button style={style} onClick={togglePersonsHandler}>Toggle Persons</button>
+      {personsJSX}
     </div >
-    //React.createElement('div', {className: 'App' }, React.createElement('h1', null, 'Hi, I\'m a react app!'))
   );
 }
 
