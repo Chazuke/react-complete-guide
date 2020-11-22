@@ -4,6 +4,39 @@ This repository is for tracking all coding done while completing the Udemy cours
 
 Contrary to normal branching strategy, each branch will represent the code at different points in time during the completion of the course. The 'main' branch will simply hold a fresh create-react-app for easy starting from scratch where necessary. For example, when doing assignments like the one at the end of Section 3. The other branches will be named for the code I have created at the end of each Section. Some sections may be built on code created in previous sections, so new branches will be created at that time using the previous branch as a base instead of main.
 
+Below is a list of topics each section covers:
+* Section 1: Getting Started
+* Section 2: Refreshing Next Generation JavaScript (Optional)
+* Section 3: Understanding the Base Features & Syntax
+* Section 4: Working with Lists and Conditionals
+* Section 5: Styling React Components & Elements
+* Section 6: Debugging React Apps
+* Section 7: Diving Deeper into Components & React Internals
+* Section 8: A Real App: The Burger Builder (Basic Version)
+* Section 9: Reach out to the Web (Http / Ajax)
+* Section 10: Burger Builder Project: Accessing a Server
+* Section 11: Multi-Page-Feeling in a Singl-Page-App: Routing
+* Section 12: Adding Routing to our Burger Project
+* Section 13: Forms and Form Validation
+* Section 14: Redux
+* Section 15: Adding Redux to our Project
+* Section 16: Redux Advanced
+* Section 17: Redux Advanced: Burger Project
+* Section 18: Adding Authentication to our Burger Project
+* Section 19: Improving our Burger Project
+* Section 20: Testing
+* Section 21: Deploying the App to the Web
+* Section 22: Bonus: Working with Webpack
+* Section 23: Bonus: Next.js
+* Section 24: Bonus: Animations in React Apps
+* Section 25: Bonus: A Brief Introduction to Redux Saga
+* Section 26: React Hooks
+* Section 27: Using Hooks in the Burger Builder
+* Section 28: Bonus: Replacing Redux with React Hooks
+* Section 29: Bonus: Building the Burger CSS
+* Section 30: Next Steps and Course Roundup
+
+
 
 ## Getting Started with Create React App
 
