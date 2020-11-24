@@ -1,4 +1,4 @@
-import './App.css';
+import appCssClasses from './App.module.css';
 import { useState } from 'react';
 import Person from './Person/Person';
 
@@ -35,15 +35,8 @@ function App() {
     setShowPersons(!showPersons);
   };
 
-  const style = {
-    backgroundColor: 'white',
-    font: 'inherit',
-    border: '1px solid blue',
-    padding: '8px',
-    cursor: 'pointer'
-  };
-
   let personsJSX = null;
+  let btnClasses = [];
 
   // Toggle displaying list of Person components
   if (showPersons) {
@@ -61,20 +54,26 @@ function App() {
         })}
       </div>
     );
+    btnClasses.push(appCssClasses.Red);
+  }
+
+  let pClasses = [];
+  if (persons.length <= 2) {
+    pClasses.push(appCssClasses.red);
+  }
+  if (persons.length <= 1) {
+    pClasses.push(appCssClasses.bold);
   }
 
   // Render App Component
   return (
-    <div className="App">
+    <div className={appCssClasses.App}>
       <h1>Hi, I'm a react app</h1>
-      <button style={style} onClick={togglePersonsHandler}>Toggle Persons</button>
+      <p className={pClasses.join(' ')}>This is really working!</p>
+      <button className={btnClasses.join(' ')} onClick={togglePersonsHandler}>Toggle Persons</button>
       {personsJSX}
     </div >
   );
 }
-
-
-
-
 
 export default App;
