@@ -1,6 +1,7 @@
 import appCssClasses from './App.module.css';
 import { useState } from 'react';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 function App() {
   // Define Initial State
@@ -26,7 +27,7 @@ function App() {
   }
 
   // Handle input event from Person component
-  const onChangeHandler = (index, event) => {
+  const onNameChangeHandler = (index, event) => {
     updatePersonsName(index, event.target.value);
   };
 
@@ -44,12 +45,14 @@ function App() {
       <div>
         {persons.map((person, index) => {
           return (
-            <Person
-              name={person.name}
-              age={person.age}
-              changed={(event) => onChangeHandler(person.id, event)}
-              click={() => deletePersonHandler(person.id)}
-              key={person.id} />
+            <ErrorBoundary>
+              <Person
+                name={person.name}
+                age={person.age}
+                changed={(event) => onNameChangeHandler(person.id, event)}
+                click={() => deletePersonHandler(person.id)}
+                key={person.id} />
+            </ErrorBoundary>
           );
         })}
       </div>
