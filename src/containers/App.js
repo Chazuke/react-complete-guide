@@ -1,8 +1,26 @@
 import appCssClasses from './App.module.css';
-import { useState } from 'react';
-import Person from './Person/Person';
+import { useEffect, useState } from 'react';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
-function App() {
+const App = (props) => {
+
+  // Things run in the useEffect hook with an empty 2nd param
+  // will only run once at component creation and not re-render.
+  // However, the hook runs late; after Render. So if you want
+  // something to execute once and first, you might need to 
+  // just use class based components
+  useEffect(() => {
+    // Mimic Console
+    console.log('[App.js] "Constructor"');
+
+    // Mimic componentDidMount
+    console.log('[App.js] "componentDidMount"');
+  }, []);
+
+  // Mimic getDerivedStateFromProps
+  console.log('[App.js] "getDerivedStateFromProps"');
+
   // Define Initial State
   const [persons, setPersons] = useState([
     { id: 0, name: 'Max', age: 28 },
@@ -26,7 +44,7 @@ function App() {
   }
 
   // Handle input event from Person component
-  const onChangeHandler = (index, event) => {
+  const onNameChangeHandler = (index, event) => {
     updatePersonsName(index, event.target.value);
   };
 
@@ -36,41 +54,29 @@ function App() {
   };
 
   let personsJSX = null;
-  let btnClasses = [];
 
   // Toggle displaying list of Person components
   if (showPersons) {
     personsJSX = (
-      <div>
-        {persons.map((person, index) => {
-          return (
-            <Person
-              name={person.name}
-              age={person.age}
-              changed={(event) => onChangeHandler(person.id, event)}
-              click={() => deletePersonHandler(person.id)}
-              key={person.id} />
-          );
-        })}
-      </div>
+      <Persons
+        persons={persons}
+        clicked={deletePersonHandler}
+        changed={onNameChangeHandler}
+      />
     );
-    btnClasses.push(appCssClasses.Red);
   }
 
-  let pClasses = [];
-  if (persons.length <= 2) {
-    pClasses.push(appCssClasses.red);
-  }
-  if (persons.length <= 1) {
-    pClasses.push(appCssClasses.bold);
-  }
+  console.log('[App.js] "Render"');
 
   // Render App Component
   return (
     <div className={appCssClasses.App}>
-      <h1>Hi, I'm a react app</h1>
-      <p className={pClasses.join(' ')}>This is really working!</p>
-      <button className={btnClasses.join(' ')} onClick={togglePersonsHandler}>Toggle Persons</button>
+      <Cockpit
+        title={props.appTitle}
+        persons={persons}
+        showPerson={showPersons}
+        btnClicked={togglePersonsHandler}
+      />
       {personsJSX}
     </div >
   );
