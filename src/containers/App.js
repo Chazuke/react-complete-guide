@@ -2,6 +2,10 @@ import appCssClasses from './App.module.css';
 import { useEffect, useState } from 'react';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
+import Auxillary from '../hoc/Auxillary';
+import AuthContext from '../context/AuthContext';
+
 
 const App = (props) => {
 
@@ -28,6 +32,8 @@ const App = (props) => {
     { id: 2, name: 'Steph', age: 26 }
   ]);
   const [showPersons, setShowPersons] = useState(false);
+  const [showCockpit, setShowCockpit] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   // Update the name of the person with the given ID in state
   const updatePersonsName = (id, name) => {
@@ -53,6 +59,10 @@ const App = (props) => {
     setShowPersons(!showPersons);
   };
 
+  const loginHandler = () => {
+    setAuthenticated(true);
+  }
+
   let personsJSX = null;
 
   // Toggle displaying list of Person components
@@ -62,6 +72,7 @@ const App = (props) => {
         persons={persons}
         clicked={deletePersonHandler}
         changed={onNameChangeHandler}
+        isAuth={authenticated}
       />
     );
   }
@@ -70,16 +81,19 @@ const App = (props) => {
 
   // Render App Component
   return (
-    <div className={appCssClasses.App}>
-      <Cockpit
-        title={props.appTitle}
-        persons={persons}
-        showPerson={showPersons}
-        btnClicked={togglePersonsHandler}
-      />
-      {personsJSX}
-    </div >
+    <Auxillary >
+      <button onClick={() => { setShowCockpit(!showCockpit) }}>Toggle Cockpit</button>
+      <AuthContext.Provider value={{ authenticated: authenticated, login: loginHandler }}>
+        {showCockpit ? <Cockpit
+          title={props.appTitle}
+          personsLength={persons.length}
+          showPerson={showPersons}
+          btnClicked={togglePersonsHandler}
+        /> : null}
+        {personsJSX}
+      </AuthContext.Provider>
+    </Auxillary >
   );
 }
 
-export default App;
+export default WithClass(App, appCssClasses.App);
