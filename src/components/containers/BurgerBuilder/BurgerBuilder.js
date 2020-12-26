@@ -42,6 +42,9 @@ const BurgerBuilder = (props) => {
     };
 
     const disabledInfo = {...ingredients};
+    for (let key in disabledInfo) {
+        disabledInfo[key] =  
+    }
 
     return (
         <Aux>
